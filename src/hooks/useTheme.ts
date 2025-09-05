@@ -13,11 +13,9 @@ export function useTheme(configuredTheme?: Theme) {
   }, [configuredTheme]);
 
   const loadThemeCSS = (themeName: Theme) => {
-    // Remove any existing theme stylesheets
     const existingThemeLinks = document.querySelectorAll('link[data-theme]');
     existingThemeLinks.forEach(link => link.remove());
 
-    // Create and add new theme stylesheet
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = `/styles/themes/${themeName}.css`;

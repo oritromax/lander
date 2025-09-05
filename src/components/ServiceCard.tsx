@@ -6,7 +6,6 @@ import { StatusIndicator } from './StatusIndicator';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { Theme } from '../hooks/useTheme';
 
-// Selfhost icon component with React state fallback
 interface SelfhostIconProps {
   name: string;
   className?: string;
@@ -15,7 +14,6 @@ interface SelfhostIconProps {
 }
 
 function SelfhostIcon({ name, className = "w-6 h-6", isDarkMode = false, onFallback }: SelfhostIconProps) {
-  // Use regular icons for light mode, light icons for dark mode (better visibility)
   const iconName = isDarkMode ? `${name.toLowerCase()}-light` : name.toLowerCase();
   const iconUrl = `https://cdn.jsdelivr.net/gh/selfhst/icons/svg/${iconName}.svg`;
   
@@ -41,7 +39,6 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
   const { isDarkMode } = useDarkMode();
   const [useExternalIcon, setUseExternalIcon] = useState(true);
   
-  // Get fallback icon component from Lucide
   const FallbackIconComponent = (LucideIcons as any)[service.icon] || LucideIcons.Globe;
   
   const handleIconError = () => {
@@ -52,7 +49,6 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
     window.open(service.url, '_blank', 'noopener,noreferrer');
   };
 
-  // Icon display component with fallback
   const IconDisplay = ({ className }: { className: string }) => {
     if (useExternalIcon) {
       return (
@@ -67,7 +63,6 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
     return <FallbackIconComponent className={`${className} text-white`} />;
   };
 
-  // Icon-only mode
   if (cardDisplay === 'icon') {
     return (
       <div
@@ -77,12 +72,10 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
         }`}
         title={`${service.name} - ${service.description}`}
       >
-        {/* Status Indicator */}
         <div className={`absolute top-2 right-2 ${iconSize === 'full' ? 'z-10' : ''}`}>
           <StatusIndicator status={status} serviceName={service.name} />
         </div>
 
-        {/* Icon Only */}
         <div className={`${
           iconSize === 'full'
             ? 'w-full h-full theme-accent-bg flex items-center justify-center rounded-xl'
@@ -91,13 +84,11 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
           <IconDisplay className={iconSize === 'full' ? 'w-12 h-12' : 'w-6 h-6'} />
         </div>
 
-        {/* Hover overlay */}
         <div className="absolute inset-0 theme-card-overlay rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
       </div>
     );
   }
 
-  // Compact mode
   if (cardDisplay === 'compact') {
     return (
       <div
@@ -106,14 +97,11 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
           iconSize === 'full' ? 'p-0 overflow-hidden' : 'p-4'
         }`}
       >
-        {/* Status Indicator */}
         <div className={`absolute top-3 right-3 ${iconSize === 'full' ? 'z-10' : ''}`}>
           <StatusIndicator status={status} serviceName={service.name} />
         </div>
 
-        {/* Content */}
         <div className={`flex items-center ${iconSize === 'full' ? 'h-full' : 'space-x-3 pr-6'}`}>
-          {/* Icon */}
           <div className={`flex-shrink-0 ${
             iconSize === 'full' 
               ? 'w-16 h-full theme-accent-bg flex items-center justify-center' 
@@ -128,7 +116,6 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
             </div>
           </div>
 
-          {/* Service Name Only */}
           <div className={`flex-1 min-w-0 ${
             iconSize === 'full' ? 'p-4 pr-8' : ''
           }`}>
@@ -138,13 +125,11 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
           </div>
         </div>
 
-        {/* Hover overlay */}
         <div className="absolute inset-0 theme-card-overlay rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
       </div>
     );
   }
 
-  // Default mode (current implementation)
   return (
     <div
       onClick={handleClick}
@@ -152,14 +137,11 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
         iconSize === 'full' ? 'p-0 overflow-hidden' : 'p-6'
       }`}
     >
-      {/* Status Indicator */}
       <div className={`absolute top-4 right-4 ${iconSize === 'full' ? 'z-10' : ''}`}>
         <StatusIndicator status={status} serviceName={service.name} />
       </div>
 
-      {/* Content */}
       <div className={`flex items-start ${iconSize === 'full' ? 'h-full' : 'space-x-4 pr-8'}`}>
-        {/* Icon */}
         <div className={`flex-shrink-0 ${
           iconSize === 'full' 
             ? 'w-20 h-full theme-accent-bg flex items-center justify-center' 
@@ -174,7 +156,6 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
           </div>
         </div>
 
-        {/* Service Info */}
         <div className={`flex-1 min-w-0 ${
           iconSize === 'full' ? 'p-6 pr-12' : ''
         }`}>
@@ -187,7 +168,6 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
         </div>
       </div>
 
-      {/* Hover overlay */}
       <div className="absolute inset-0 theme-card-overlay rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none" />
     </div>
   );
