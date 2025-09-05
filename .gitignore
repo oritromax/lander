@@ -60,3 +60,6 @@ coverage
 *.tmp
 *.temp
 .cache
+
+# Scripts directory (keep scripts but ignore if needed)
+# scripts/
