@@ -3,7 +3,7 @@ import { ServicesData, DashboardConfig } from '../types/service';
 
 export async function loadServices(): Promise<ServicesData> {
   try {
-    const response = await fetch('/src/config/services.yaml');
+    const response = await fetch('/config/services.yaml');
     const yamlText = await response.text();
     const servicesData = yaml.load(yamlText) as ServicesData;
     return servicesData;
@@ -15,7 +15,7 @@ export async function loadServices(): Promise<ServicesData> {
 
 export async function loadConfig(): Promise<DashboardConfig> {
   try {
-    const response = await fetch('/src/config/config.yaml');
+    const response = await fetch('/config/config.yaml');
     const yamlText = await response.text();
     const config = yaml.load(yamlText) as DashboardConfig;
     return config;
