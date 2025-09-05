@@ -46,7 +46,7 @@ docker-compose.override.yml
 # Public directory temporary files (not part of source)
 public/config/
 public/styles/
-
+lander_config/
 # OS files
 Thumbs.db
 .DS_Store

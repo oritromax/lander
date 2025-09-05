@@ -7,7 +7,8 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev:setup": "mkdir -p public/config public/styles/themes && cp src/config/* public/config/ && cp src/styles/themes/* public/styles/themes/",
+    "dev": "npm run dev:setup && vite",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
