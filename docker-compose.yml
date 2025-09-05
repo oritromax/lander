@@ -1,7 +1,8 @@
 services:
   lander:
-    build: .
-    image: lander:latest
+    # For development: uncomment the build line and comment image line
+    # build: .
+    image: ghcr.io/oritromax/lander:latest
     container_name: lander
     ports:
       - "3000:3000"
