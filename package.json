@@ -4,14 +4,24 @@
     "name": "Oritro Ahmed",
     "email": "le@ioritro.com"},
   "private": true,
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oritromax/lander.git"
+  },
+  "homepage": "https://github.com/oritromax/lander#readme",
+  "bugs": {
+    "url": "https://github.com/oritromax/lander/issues"
+  },
   "scripts": {
     "dev:setup": "mkdir -p public/config public/styles/themes && cp src/config/* public/config/ && cp src/styles/themes/* public/styles/themes/",
     "dev": "npm run dev:setup && vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "docker:dev": "docker-compose -f docker-compose.dev.yml up --build",
+    "docker:prod": "docker-compose up -d"
   },
   "dependencies": {
     "@types/js-yaml": "^4.0.9",
