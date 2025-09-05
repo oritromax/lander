@@ -1,0 +1,23 @@
+# Dashboard Configuration
+# Configure the appearance and behavior of your self-hosted services dashboard
+
+# Theme Configuration
+# Options: "default", "forest", "nether", "summer", or "neon"
+# default: Clean blue and gray color scheme
+# forest: Warm earthy color palette with bone, tomato, and onyx colors
+# nether: Bold contrast theme with deep reds, blues, and cream tones
+# summer: Soft, natural palette with warm greens, beiges, and creamy tones
+# neon: Electric cyberpunk theme with bright pinks, turquoise, and neon accents
+theme: "forest"
+
+# View Configuration
+# Options: "grid" or "category"
+# grid: Shows all services in a grid with category filter at the top
+# category: Groups services by category with headings, no filter needed
+view: "category"
+
+# Order Configuration
+# Options: "ascending" or "descending"
+# grid: Controls the order of all services
+# category: Controls the order of categories (not individual services)
+order: "ascending"

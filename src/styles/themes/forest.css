@@ -1,0 +1,118 @@
+/* Forest Theme */
+:root {
+  --forest-bone: #d1cfc0;
+  --forest-platinum: #dbdbdb;
+  --forest-onyx: #3b3b3b;
+  --forest-tomato: #f06c51;
+  --forest-eerie-black: #221f1a;
+}
+
+.theme-bg {
+  background-color: var(--forest-bone);
+}
+
+.dark .theme-bg {
+  background-color: var(--forest-eerie-black);
+}
+
+.theme-surface {
+  background-color: var(--forest-platinum);
+}
+
+.dark .theme-surface {
+  background-color: var(--forest-onyx);
+}
+
+.theme-text {
+  color: var(--forest-eerie-black);
+}
+
+.dark .theme-text {
+  color: var(--forest-bone);
+}
+
+.theme-text-secondary {
+  color: var(--forest-onyx);
+}
+
+.dark .theme-text-secondary {
+  color: var(--forest-platinum);
+}
+
+.theme-accent {
+  color: var(--forest-tomato);
+}
+
+.theme-accent-bg {
+  background-color: var(--forest-tomato);
+}
+
+.theme-border {
+  border-color: rgba(59, 59, 59, 0.2);
+}
+
+.dark .theme-border {
+  border-color: rgba(209, 207, 192, 0.2);
+}
+
+.theme-hover:hover {
+  background-color: rgba(59, 59, 59, 0.1);
+}
+
+.dark .theme-hover:hover {
+  background-color: rgba(209, 207, 192, 0.1);
+}
+
+.theme-filter-active {
+  background-color: var(--forest-tomato);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.theme-filter-inactive {
+  background-color: var(--forest-platinum);
+  color: var(--forest-eerie-black);
+  border: 1px solid rgba(59, 59, 59, 0.2);
+}
+
+.theme-filter-inactive:hover {
+  background-color: rgba(59, 59, 59, 0.1);
+}
+
+.dark .theme-filter-inactive {
+  background-color: var(--forest-onyx);
+  color: var(--forest-bone);
+  border-color: rgba(209, 207, 192, 0.2);
+}
+
+.dark .theme-filter-inactive:hover {
+  background-color: rgba(209, 207, 192, 0.1);
+}
+
+.theme-card-hover:hover {
+  border-color: rgba(240, 108, 81, 0.3);
+}
+
+.theme-card-overlay {
+  background: linear-gradient(to right, rgba(240, 108, 81, 0.05), rgba(59, 59, 59, 0.05));
+}
+
+.theme-topbar-surface {
+  background-color: var(--forest-platinum);
+}
+
+.dark .theme-topbar-surface {
+  background-color: rgba(59, 59, 59, 0.8);
+}
+
+.theme-topbar-border {
+  border-color: rgba(59, 59, 59, 0.2);
+}
+
+.dark .theme-topbar-border {
+  border-color: rgba(209, 207, 192, 0.1);
+}
+
+.theme-loading-spinner {
+  border-color: var(--forest-tomato);
+}

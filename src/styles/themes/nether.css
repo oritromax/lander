@@ -1,0 +1,118 @@
+/* Nether Theme */
+:root {
+  --nether-barn-red: #780000;
+  --nether-fire-brick: #c1121f;
+  --nether-papaya-whip: #fdf0d5;
+  --nether-prussian-blue: #003049;
+  --nether-air-superiority-blue: #669bbc;
+}
+
+.theme-bg {
+  background-color: var(--nether-papaya-whip);
+}
+
+.dark .theme-bg {
+  background-color: var(--nether-prussian-blue);
+}
+
+.theme-surface {
+  background-color: #ffffff;
+}
+
+.dark .theme-surface {
+  background-color: var(--nether-prussian-blue);
+}
+
+.theme-text {
+  color: var(--nether-prussian-blue);
+}
+
+.dark .theme-text {
+  color: var(--nether-papaya-whip);
+}
+
+.theme-text-secondary {
+  color: var(--nether-air-superiority-blue);
+}
+
+.dark .theme-text-secondary {
+  color: var(--nether-air-superiority-blue);
+}
+
+.theme-accent {
+  color: var(--nether-fire-brick);
+}
+
+.theme-accent-bg {
+  background-color: var(--nether-fire-brick);
+}
+
+.theme-border {
+  border-color: rgba(193, 18, 31, 0.2);
+}
+
+.dark .theme-border {
+  border-color: rgba(253, 240, 213, 0.2);
+}
+
+.theme-hover:hover {
+  background-color: rgba(193, 18, 31, 0.1);
+}
+
+.dark .theme-hover:hover {
+  background-color: rgba(253, 240, 213, 0.1);
+}
+
+.theme-filter-active {
+  background-color: var(--nether-fire-brick);
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.theme-filter-inactive {
+  background-color: #ffffff;
+  color: var(--nether-prussian-blue);
+  border: 1px solid rgba(193, 18, 31, 0.2);
+}
+
+.theme-filter-inactive:hover {
+  background-color: rgba(193, 18, 31, 0.1);
+}
+
+.dark .theme-filter-inactive {
+  background-color: var(--nether-barn-red);
+  color: var(--nether-papaya-whip);
+  border-color: rgba(253, 240, 213, 0.2);
+}
+
+.dark .theme-filter-inactive:hover {
+  background-color: rgba(253, 240, 213, 0.1);
+}
+
+.theme-card-hover:hover {
+  border-color: rgba(193, 18, 31, 0.3);
+}
+
+.theme-card-overlay {
+  background: linear-gradient(to right, rgba(193, 18, 31, 0.05), rgba(102, 155, 188, 0.05));
+}
+
+.theme-topbar-surface {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.dark .theme-topbar-surface {
+  background-color: rgba(120, 0, 0, 0.8);
+}
+
+.theme-topbar-border {
+  border-color: rgba(193, 18, 31, 0.2);
+}
+
+.dark .theme-topbar-border {
+  border-color: rgba(253, 240, 213, 0.1);
+}
+
+.theme-loading-spinner {
+  border-color: var(--nether-fire-brick);
+}
