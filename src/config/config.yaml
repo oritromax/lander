@@ -1,5 +1,5 @@
 # Dashboard Configuration
-# Configure the appearance and behavior of your lander dashboard
+# Configure the appearance and behavior of your self-hosted services dashboard
 
 # Theme Configuration
 # Options: "default", "forest", "nether", "summer", or "neon"
@@ -8,7 +8,20 @@
 # nether: Bold contrast theme with deep reds, blues, and cream tones
 # summer: Soft, natural palette with warm greens, beiges, and creamy tones
 # neon: Electric cyberpunk theme with bright pinks, turquoise, and neon accents
-theme: "forest"
+theme: "neon"
+
+# Card Display Configuration
+# Options: "default", "compact", or "icon"
+# default: Full cards with icon, title, description, and status indicator
+# compact: Medium cards with icon, title, and status indicator (no description)
+# icon: Minimal cards showing only icon and status indicator (fits more on screen)
+card-display: "compact"
+
+# Icon Size Configuration
+# Options: "default" or "full"
+# default: Normal sized icons with padding/borders
+# full: Icons extend full height and to left edge of card for prominent display
+icon-size: "full"
 
 # View Configuration
 # Options: "grid" or "category"

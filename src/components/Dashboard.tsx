@@ -12,6 +12,8 @@ export function Dashboard() {
   const [services, setServices] = useState<Service[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'category'>('grid');
   const [sortOrder, setSortOrder] = useState<'ascending' | 'descending'>('ascending');
+  const [cardDisplay, setCardDisplay] = useState<'default' | 'compact' | 'icon'>('default');
+  const [iconSize, setIconSize] = useState<'default' | 'full'>('default');
   const [configuredTheme, setConfiguredTheme] = useState<'default' | 'forest'>('default');
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -29,6 +31,8 @@ export function Dashboard() {
         setServices(servicesData.services);
         setViewMode(config.view || 'grid');
         setSortOrder(config.order || 'ascending');
+        setCardDisplay(config['card-display'] || 'default');
+        setIconSize(config['icon-size'] || 'default');
         setConfiguredTheme(config.theme || 'default');
       } catch (error) {
         console.error('Failed to load services:', error);
@@ -127,9 +131,15 @@ export function Dashboard() {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className={`grid gap-6 ${
+                cardDisplay === 'icon' 
+                  ? 'grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10' 
+                  : cardDisplay === 'compact'
+                  ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+                  : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+              }`}>
                 {filteredServices.map((service, index) => (
-                  <ServiceCard key={`${service.name}-${index}`} service={service} theme={theme} />
+                  <ServiceCard key={`${service.name}-${index}`} service={service} theme={theme} cardDisplay={cardDisplay} iconSize={iconSize} />
                 ))}
               </div>
             )}
@@ -144,9 +154,15 @@ export function Dashboard() {
                 <h2 className="text-2xl font-bold theme-text mb-6 pb-2 border-b theme-border">
                   {category}
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div className={`grid gap-6 ${
+                  cardDisplay === 'icon' 
+                    ? 'grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10' 
+                    : cardDisplay === 'compact'
+                    ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5'
+                    : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
+                }`}>
                   {categoryServices.map((service, index) => (
-                    <ServiceCard key={`${service.name}-${index}`} service={service} theme={theme} />
+                    <ServiceCard key={`${service.name}-${index}`} service={service} theme={theme} cardDisplay={cardDisplay} iconSize={iconSize} />
                   ))}
                 </div>
               </div>
