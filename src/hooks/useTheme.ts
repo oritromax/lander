@@ -20,7 +20,7 @@ export function useTheme(configuredTheme?: Theme) {
     // Create and add new theme stylesheet
     const link = document.createElement('link');
     link.rel = 'stylesheet';
-    link.href = `/src/styles/themes/${themeName}.css`;
+    link.href = `/styles/themes/${themeName}.css`;
     link.setAttribute('data-theme', themeName);
     document.head.appendChild(link);
   };
