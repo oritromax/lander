@@ -1,0 +1,27 @@
+services:
+  lander:
+    build: .
+    image: lander:latest
+    container_name: lander
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount your configuration directory here
+      # The container will create default configs if they don't exist
+      - ./lander_config:/app/dist/config
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+# Optional: Add this service to an existing network
+# networks:
+#   default:
+#     external:
+#       name: your-network-name
