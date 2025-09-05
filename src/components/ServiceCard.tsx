@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as LucideIcons from 'lucide-react';
 import { Service } from '../types/service';
 import { useServiceStatus } from '../hooks/useServiceStatus';
@@ -6,14 +6,15 @@ import { StatusIndicator } from './StatusIndicator';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { Theme } from '../hooks/useTheme';
 
-// Selfhost icon component
+// Selfhost icon component with React state fallback
 interface SelfhostIconProps {
   name: string;
   className?: string;
   isDarkMode?: boolean;
+  onFallback: () => void;
 }
 
-function SelfhostIcon({ name, className = "w-6 h-6", isDarkMode = false }: SelfhostIconProps) {
+function SelfhostIcon({ name, className = "w-6 h-6", isDarkMode = false, onFallback }: SelfhostIconProps) {
   // Use regular icons for light mode, light icons for dark mode (better visibility)
   const iconName = isDarkMode ? `${name.toLowerCase()}-light` : name.toLowerCase();
   const iconUrl = `https://cdn.jsdelivr.net/gh/selfhst/icons/svg/${iconName}.svg`;
@@ -23,12 +24,7 @@ function SelfhostIcon({ name, className = "w-6 h-6", isDarkMode = false }: Selfh
       src={iconUrl}
       alt={`${name} icon`}
       className={className}
-      onError={(e) => {
-        // Fallback to a default icon if the specific service icon doesn't exist
-        const target = e.target as HTMLImageElement;
-        target.style.display = 'none';
-        target.nextElementSibling?.classList.remove('hidden');
-      }}
+      onError={onFallback}
     />
   );
 }
@@ -43,12 +39,32 @@ interface ServiceCardProps {
 export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize = 'default' }: ServiceCardProps) {
   const status = useServiceStatus(service);
   const { isDarkMode } = useDarkMode();
+  const [useExternalIcon, setUseExternalIcon] = useState(true);
   
   // Get fallback icon component from Lucide
   const FallbackIconComponent = (LucideIcons as any)[service.icon] || LucideIcons.Globe;
+  
+  const handleIconError = () => {
+    setUseExternalIcon(false);
+  };
 
   const handleClick = () => {
     window.open(service.url, '_blank', 'noopener,noreferrer');
+  };
+
+  // Icon display component with fallback
+  const IconDisplay = ({ className }: { className: string }) => {
+    if (useExternalIcon) {
+      return (
+        <SelfhostIcon
+          name={service.name}
+          className={`${className} text-white`}
+          isDarkMode={isDarkMode}
+          onFallback={handleIconError}
+        />
+      );
+    }
+    return <FallbackIconComponent className={`${className} text-white`} />;
   };
 
   // Icon-only mode
@@ -72,12 +88,7 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
             ? 'w-full h-full theme-accent-bg flex items-center justify-center rounded-xl'
             : 'w-12 h-12 theme-accent-bg rounded-lg flex items-center justify-center'
         } transition-colors duration-200`}>
-          <SelfhostIcon name={service.name} className={`${
-            iconSize === 'full' ? 'w-12 h-12' : 'w-6 h-6'
-          } text-white`} isDarkMode={isDarkMode} />
-          <FallbackIconComponent className={`${
-            iconSize === 'full' ? 'w-12 h-12' : 'w-6 h-6'
-          } text-white hidden`} />
+          <IconDisplay className={iconSize === 'full' ? 'w-12 h-12' : 'w-6 h-6'} />
         </div>
 
         {/* Hover overlay */}
@@ -113,12 +124,7 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
                 ? 'w-8 h-8'
                 : 'w-10 h-10 theme-accent-bg rounded-lg'
             } flex items-center justify-center transition-colors duration-200`}>
-              <SelfhostIcon name={service.name} className={`${
-                iconSize === 'full' ? 'w-6 h-6' : 'w-5 h-5'
-              } text-white`} isDarkMode={isDarkMode} />
-              <FallbackIconComponent className={`${
-                iconSize === 'full' ? 'w-6 h-6' : 'w-5 h-5'
-              } text-white hidden`} />
+              <IconDisplay className={iconSize === 'full' ? 'w-6 h-6' : 'w-5 h-5'} />
             </div>
           </div>
 
@@ -164,12 +170,7 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
               ? 'w-10 h-10'
               : 'w-12 h-12 theme-accent-bg rounded-lg'
           } flex items-center justify-center transition-colors duration-200`}>
-            <SelfhostIcon name={service.name} className={`${
-              iconSize === 'full' ? 'w-8 h-8' : 'w-6 h-6'
-            } text-white`} isDarkMode={isDarkMode} />
-            <FallbackIconComponent className={`${
-              iconSize === 'full' ? 'w-8 h-8' : 'w-6 h-6'
-            } text-white hidden`} />
+            <IconDisplay className={iconSize === 'full' ? 'w-8 h-8' : 'w-6 h-6'} />
           </div>
         </div>
 
