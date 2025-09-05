@@ -37,9 +37,15 @@ dist-ssr
 docker-compose.override.yml
 .dockerignore
 
-# User configs (for development)
+# User configs (for development and testing)
 /config
 /user-config
+/test-config
+*-config/
+
+# Public directory temporary files (not part of source)
+public/config/
+public/styles/
 
 # OS files
 Thumbs.db
