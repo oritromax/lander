@@ -17,8 +17,19 @@ export async function loadConfig(): Promise<DashboardConfig> {
   try {
     const response = await fetch('/config/config.yaml');
     const yamlText = await response.text();
-    const config = yaml.load(yamlText) as DashboardConfig;
-    return config;
+    const raw = yaml.load(yamlText) as any;
+
+    // Normalize dashed YAML keys to camelCase for TS safety
+    const normalized: DashboardConfig = {
+      view: raw?.view ?? 'grid',
+      order: raw?.order ?? 'ascending',
+      theme: raw?.theme ?? 'default',
+      cardDisplay: raw?.['card-display'] ?? raw?.cardDisplay ?? 'default',
+      iconSize: raw?.['icon-size'] ?? raw?.iconSize ?? 'default',
+      weather: raw?.weather,
+    };
+
+    return normalized;
   } catch (error) {
     console.error('Error loading dashboard configuration:', error);
     return {

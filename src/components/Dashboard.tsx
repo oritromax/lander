@@ -33,8 +33,8 @@ export function Dashboard() {
         setServices(servicesData.services);
         setViewMode(config.view || 'grid');
         setSortOrder(config.order || 'ascending');
-        setCardDisplay(config['card-display'] || 'default');
-        setIconSize(config['icon-size'] || 'default');
+        setCardDisplay(config.cardDisplay || 'default');
+        setIconSize(config.iconSize || 'default');
         setConfiguredTheme(config.theme || 'default');
         setWeatherConfig(config.weather);
       } catch (error) {
