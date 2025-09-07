@@ -239,7 +239,7 @@ We welcome contributions! Here's how you can help:
 
 ## Roadmap
 
-- [ ] Weather widget
+- [x] Weather widget
 - [ ] Hot-reloading configurations
 - [ ] Offline icon pack
 - [ ] No-icon configuration
