@@ -34,3 +34,11 @@ view: "category"
 # grid: Controls the order of all services
 # category: Controls the order of categories (not individual services)
 order: "ascending"
+
+# Weather Widget Configuration (Optional)
+# Display current weather information in a floating widget
+# Requires OpenWeatherMap API key (free tier available at https://openweathermap.org/api)
+# Uncomment and configure the following section to enable weather widget
+# weather:
+#   apiKey: "your_openweathermap_api_key_here"
+#   location: "London"  # City name (e.g., "New York", "Tokyo", "Paris,FR")

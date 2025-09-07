@@ -16,6 +16,10 @@ export interface DashboardConfig {
   theme?: 'default' | 'forest' | 'nether' | 'summer' | 'neon';
   cardDisplay?: 'default' | 'compact' | 'icon';
   iconSize?: 'default' | 'full';
+  weather?: {
+    apiKey: string;
+    location: string;
+  };
 }
 
 export type ServiceStatus = 'online' | 'offline' | 'checking';

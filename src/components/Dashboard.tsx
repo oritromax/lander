@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Server } from 'lucide-react';
-import { Service } from '../types/service';
+import { Service, DashboardConfig } from '../types/service';
 import { loadServices, loadConfig } from '../utils/yamlLoader';
 import { ServiceCard } from './ServiceCard';
 import { CategoryFilter } from './CategoryFilter';
 import { ThemeToggle } from './ThemeToggle';
+import { WeatherWidget } from './WeatherWidget';
 import { TopBar } from './TopBar';
 import { useTheme } from '../hooks/useTheme';
 
@@ -15,6 +16,7 @@ export function Dashboard() {
   const [cardDisplay, setCardDisplay] = useState<'default' | 'compact' | 'icon'>('default');
   const [iconSize, setIconSize] = useState<'default' | 'full'>('default');
   const [configuredTheme, setConfiguredTheme] = useState<'default' | 'forest'>('default');
+  const [weatherConfig, setWeatherConfig] = useState<DashboardConfig['weather']>(undefined);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
@@ -34,6 +36,7 @@ export function Dashboard() {
         setCardDisplay(config['card-display'] || 'default');
         setIconSize(config['icon-size'] || 'default');
         setConfiguredTheme(config.theme || 'default');
+        setWeatherConfig(config.weather);
       } catch (error) {
         console.error('Failed to load services:', error);
       } finally {
@@ -91,6 +94,9 @@ export function Dashboard() {
   if (loading) {
     return (
       <div className="min-h-screen theme-bg flex items-center justify-center">
+        {weatherConfig?.apiKey && weatherConfig?.location && (
+          <WeatherWidget apiKey={weatherConfig.apiKey} location={weatherConfig.location} />
+        )}
         <ThemeToggle />
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 theme-loading-spinner mx-auto"></div>
@@ -102,6 +108,9 @@ export function Dashboard() {
 
   return (
     <div className="min-h-screen theme-bg transition-colors duration-200 relative">
+      {weatherConfig?.apiKey && weatherConfig?.location && (
+        <WeatherWidget apiKey={weatherConfig.apiKey} location={weatherConfig.location} />
+      )}
       <ThemeToggle />
       <TopBar theme={theme} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-8">
