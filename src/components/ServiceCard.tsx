@@ -4,7 +4,6 @@ import { Service } from '../types/service';
 import { useServiceStatus } from '../hooks/useServiceStatus';
 import { StatusIndicator } from './StatusIndicator';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { Theme } from '../hooks/useTheme';
 
 interface SelfhostIconProps {
   name: string;
@@ -43,17 +42,17 @@ function SelfhostIcon({ name, className = "w-6 h-6", isDarkMode = false, onFallb
 
 interface ServiceCardProps {
   service: Service;
-  theme?: Theme;
   cardDisplay?: 'default' | 'compact' | 'icon';
   iconSize?: 'default' | 'full';
 }
 
-export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize = 'default' }: ServiceCardProps) {
+export function ServiceCard({ service, cardDisplay = 'default', iconSize = 'default' }: ServiceCardProps) {
   const status = useServiceStatus(service);
   const { isDarkMode } = useDarkMode();
   const [useExternalIcon, setUseExternalIcon] = useState(true);
   
-  const FallbackIconComponent = (LucideIcons as any)[service.icon] || LucideIcons.Globe;
+  const IconRegistry = LucideIcons as unknown as Record<string, React.ComponentType<{ className?: string }>>;
+  const FallbackIconComponent = IconRegistry[service.icon] || LucideIcons.Globe;
   
   const handleIconError = () => {
     setUseExternalIcon(false);

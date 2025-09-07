@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Theme } from '../hooks/useTheme';
-
-interface TopBarProps {
-  theme?: Theme;
-}
-
-export function TopBar({ theme = 'default' }: TopBarProps) {
+export function TopBar() {
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {

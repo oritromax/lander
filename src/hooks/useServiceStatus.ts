@@ -6,7 +6,6 @@ export function useServiceStatus(service: Service) {
 
   useEffect(() => {
     let isMounted = true;
-    let intervalId: number | undefined;
     let controller: AbortController | null = null;
     let timeoutId: number | undefined;
 
@@ -38,7 +37,7 @@ export function useServiceStatus(service: Service) {
 
         if (!isMounted) return;
         setStatus('online');
-      } catch (_err) {
+      } catch {
         if (!isMounted) return;
         setStatus('offline');
       } finally {
@@ -50,11 +49,11 @@ export function useServiceStatus(service: Service) {
     };
 
     checkStatus();
-    intervalId = setInterval(checkStatus, 30000) as unknown as number;
+    const intervalId = setInterval(checkStatus, 30000) as unknown as number;
 
     return () => {
       isMounted = false;
-      if (intervalId !== undefined) clearInterval(intervalId);
+      clearInterval(intervalId);
       cleanupOngoing();
     };
   }, [service.url]);

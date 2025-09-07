@@ -20,7 +20,7 @@ export function Dashboard() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
 
-  const { theme } = useTheme(configuredTheme);
+  useTheme(configuredTheme);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -112,7 +112,7 @@ export function Dashboard() {
         <WeatherWidget apiKey={weatherConfig.apiKey} location={weatherConfig.location} />
       )}
       <ThemeToggle />
-      <TopBar theme={theme} />
+      <TopBar />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-8">
         {/* Filters - Only show in grid view */}
         {viewMode === 'grid' && (
@@ -121,7 +121,6 @@ export function Dashboard() {
               categories={categories}
               selectedCategory={selectedCategory}
               onCategoryChange={setSelectedCategory}
-              theme={theme}
             />
           </div>
         )}
@@ -148,7 +147,7 @@ export function Dashboard() {
                   : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
               }`}>
                 {filteredServices.map((service, index) => (
-                  <ServiceCard key={`${service.name}-${index}`} service={service} theme={theme} cardDisplay={cardDisplay} iconSize={iconSize} />
+                  <ServiceCard key={`${service.name}-${index}`} service={service} cardDisplay={cardDisplay} iconSize={iconSize} />
                 ))}
               </div>
             )}
@@ -171,7 +170,7 @@ export function Dashboard() {
                     : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'
                 }`}>
                   {categoryServices.map((service, index) => (
-                    <ServiceCard key={`${service.name}-${index}`} service={service} theme={theme} cardDisplay={cardDisplay} iconSize={iconSize} />
+                    <ServiceCard key={`${service.name}-${index}`} service={service} cardDisplay={cardDisplay} iconSize={iconSize} />
                   ))}
                 </div>
               </div>

@@ -1,14 +1,12 @@
 import React from 'react';
-import { Theme } from '../hooks/useTheme';
 
 interface CategoryFilterProps {
   categories: string[];
   selectedCategory: string;
   onCategoryChange: (category: string) => void;
-  theme?: Theme;
 }
 
-export function CategoryFilter({ categories, selectedCategory, onCategoryChange, theme = 'default' }: CategoryFilterProps) {
+export function CategoryFilter({ categories, selectedCategory, onCategoryChange }: CategoryFilterProps) {
   return (
     <div className="flex flex-wrap gap-2">
       <button
