@@ -7,7 +7,7 @@ import { CategoryFilter } from './CategoryFilter';
 import { ThemeToggle } from './ThemeToggle';
 import { WeatherWidget } from './WeatherWidget';
 import { TopBar } from './TopBar';
-import { useTheme } from '../hooks/useTheme';
+import { useTheme, type Theme } from '../hooks/useTheme';
 
 export function Dashboard() {
   const [services, setServices] = useState<Service[]>([]);
@@ -15,7 +15,7 @@ export function Dashboard() {
   const [sortOrder, setSortOrder] = useState<'ascending' | 'descending'>('ascending');
   const [cardDisplay, setCardDisplay] = useState<'default' | 'compact' | 'icon'>('default');
   const [iconSize, setIconSize] = useState<'default' | 'full'>('default');
-  const [configuredTheme, setConfiguredTheme] = useState<'default' | 'forest'>('default');
+  const [configuredTheme, setConfiguredTheme] = useState<Theme>('default');
   const [weatherConfig, setWeatherConfig] = useState<DashboardConfig['weather']>(undefined);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
