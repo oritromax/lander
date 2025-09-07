@@ -14,15 +14,29 @@ interface SelfhostIconProps {
 }
 
 function SelfhostIcon({ name, className = "w-6 h-6", isDarkMode = false, onFallback }: SelfhostIconProps) {
-  const iconName = isDarkMode ? `${name.toLowerCase()}-light` : name.toLowerCase();
-  const iconUrl = `https://cdn.jsdelivr.net/gh/selfhst/icons/svg/${iconName}.svg`;
+  const [imageFormat, setImageFormat] = useState<'svg' | 'png'>('svg');
+  
+  
+  const formattedName = name.toLowerCase().replace(/\s+/g, '-');
+  const iconName = isDarkMode && imageFormat === 'svg' ? `${formattedName}-light` : formattedName;
+  const iconUrl = `https://cdn.jsdelivr.net/gh/selfhst/icons/${imageFormat}/${iconName}.${imageFormat}`;
+  
+  const handleError = () => {
+    // If SVG fails, try PNG
+    if (imageFormat === 'svg') {
+      setImageFormat('png');
+    } else {
+      // If both fail, use the fallback
+      onFallback();
+    }
+  };
   
   return (
     <img
       src={iconUrl}
       alt={`${name} icon`}
       className={className}
-      onError={onFallback}
+      onError={handleError}
     />
   );
 }
@@ -53,7 +67,7 @@ export function ServiceCard({ service, theme, cardDisplay = 'default', iconSize 
     if (useExternalIcon) {
       return (
         <SelfhostIcon
-          name={service.name}
+          name={service.icon}
           className={`${className} text-white`}
           isDarkMode={isDarkMode}
           onFallback={handleIconError}
