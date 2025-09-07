@@ -5,34 +5,58 @@ export function useServiceStatus(service: Service) {
   const [status, setStatus] = useState<ServiceStatus>('checking');
 
   useEffect(() => {
+    let isMounted = true;
+    let intervalId: number | undefined;
+    let controller: AbortController | null = null;
+    let timeoutId: number | undefined;
+
+    const cleanupOngoing = () => {
+      if (controller) {
+        controller.abort();
+        controller = null;
+      }
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+        timeoutId = undefined;
+      }
+    };
+
     const checkStatus = async () => {
       try {
+        if (!isMounted) return;
         setStatus('checking');
-        
-        // Create a timeout promise
-        const timeoutPromise = new Promise<never>((_, reject) => {
-          setTimeout(() => reject(new Error('Timeout')), 5000);
-        });
 
-        // Try to ping the service with timeout
-        const fetchPromise = fetch(service.url, { 
+        controller = new AbortController();
+        const signal = controller.signal;
+        timeoutId = setTimeout(() => controller?.abort(), 5000) as unknown as number;
+
+        await fetch(service.url, {
           method: 'HEAD',
-          mode: 'no-cors' // This prevents CORS issues but limits response info
+          mode: 'no-cors',
+          signal,
         });
 
-        await Promise.race([fetchPromise, timeoutPromise]);
+        if (!isMounted) return;
         setStatus('online');
-      } catch (error) {
+      } catch (_err) {
+        if (!isMounted) return;
         setStatus('offline');
+      } finally {
+        if (timeoutId !== undefined) {
+          clearTimeout(timeoutId);
+          timeoutId = undefined;
+        }
       }
     };
 
     checkStatus();
-    
-    // Check status every 30 seconds
-    const interval = setInterval(checkStatus, 30000);
-    
-    return () => clearInterval(interval);
+    intervalId = setInterval(checkStatus, 30000) as unknown as number;
+
+    return () => {
+      isMounted = false;
+      if (intervalId !== undefined) clearInterval(intervalId);
+      cleanupOngoing();
+    };
   }, [service.url]);
 
   return status;
